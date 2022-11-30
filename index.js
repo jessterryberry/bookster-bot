@@ -1,12 +1,14 @@
 // Require necessary discord.js classes
 const fs = require('node:fs');
 const path = require('node:path');
-const {Client, Events, Collection, GatewayIntentBits} = require('discord.js');
+const {Client, Events, Collection, GatewayIntentBits, Partials} = require('discord.js');
 const {token} = require('./config.json');
-const { PermissionsBitField } = require('discord.js');
 
 // Create a new client instance
-const client = new Client({intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions],
+    partials: [Partials.Message, Partials.Channel, Partials.Reaction] ,
+});
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
