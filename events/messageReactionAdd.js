@@ -17,9 +17,52 @@ module.exports = {
         }
 
         if (reaction.message.id == '1047551743455674508'){
-            if (reaction.emoji.name == '📖'){
-                
+            var member = reaction.message.guild.members.cache.find(u => u.id == user.id);
+            var roleToAdd = null;
+            
+            switch (reaction.emoji.name){
+                case'🎧':
+                    roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "Audio-Bookie");
+                    break;
+                case'📱':
+                    roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "E-Bookie");
+                    break;
+                case'📖':
+                    roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "Paper Bookie");
+                    break;  
+                case'🐉':
+                    roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "Fantasy");
+                    break;
+                case'🕵️':
+                    roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "Mystery/Thriller");
+                    break;
+                case'🧛':
+                    roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "Horror");
+                    break;
+                case'👽':
+                    roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "Sci-Fi");
+                    break;
+                case'👤':
+                    roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "Autobiography");
+                    break;
+                case'📚':
+                    roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "Fiction");
+                    break; 
+                case'📒':
+                    roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "Non-Fiction");
+                    break;  
             }
+
+            // if the roleToAdd is not null, we will assign it to a member
+            if (roleToAdd != null) {
+                member.roles.add(roleToAdd);
+            }
+            
+            /*if (reaction.emoji.name == '📖'){
+               var roleToAdd = reaction.message.guild.roles.cache.find(r => r.name == "Paper Bookie");
+               console.log(reaction.message.guild.name);
+               member.roles.add(roleToAdd);
+            }*/
         }
         // Now the message has been cached and is fully available
         console.log(`${reaction.message.author}'s message "${reaction.message.content}" gained a reaction!`);
