@@ -1,4 +1,5 @@
 const { Events } = require('discord.js');
+const { clientId } = require('../config.json');
 
 module.exports = {
     name: Events.MessageReactionAdd,
@@ -16,7 +17,18 @@ module.exports = {
             }
         }
 
-        if (reaction.message.id == '1047551743455674508'){
+        if (user.id == clientId) {
+            return;
+        }
+
+        var messageId = '';
+        var fs = require('node:fs');
+        var rawData = fs.readFileSync('data.json');
+        
+        var obj = JSON.parse(rawData);
+        messageId = obj.messageId;
+
+        if (reaction.message.id == messageId ){
             var member = reaction.message.guild.members.cache.find(u => u.id == user.id);
             var roleToAdd = null;
             
